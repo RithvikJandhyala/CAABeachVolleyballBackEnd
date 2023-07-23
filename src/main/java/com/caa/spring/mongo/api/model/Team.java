@@ -19,13 +19,12 @@ public class Team {
 	private int losses;
 	private int ties;
 	private double pct;
-	private int pointsFor;
-	private int pointsAgainst;
+	
 	private int winPoints = 0;
 	private int lossPoints = 0;
 	private String division;
 	
-	public Team(String id, String name, int wins, int losses,int ties, double pct, int winPoints, int lossPoints, int pointsFor, int pointsAgainst, String division) {
+	public Team(String id, String name, int wins, int losses,int ties, double pct, int winPoints, int lossPoints,  String division) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -35,8 +34,6 @@ public class Team {
 		this.pct = pct;
 		this.winPoints = winPoints;
 		this.lossPoints = lossPoints;
-		this.pointsFor = pointsFor;
-		this.pointsAgainst = pointsAgainst;
 		this.division = division;
 	}
 	
@@ -82,18 +79,6 @@ public class Team {
 	public void setLossPoints(int lossPoints) {
 		this.lossPoints = lossPoints;
 	}
-	public int getPointsFor() {
-		return pointsFor;
-	}
-	public void setPointsFor(int pointsFor) {
-		this.pointsFor = pointsFor;
-	}
-	public int getPointsAgainst() {
-		return pointsAgainst;
-	}
-	public void setPointsAgainst(int pointsAgainst) {
-		this.pointsAgainst = pointsAgainst;
-	}
 	public String getDivision() {
 		return division;
 	}
@@ -110,7 +95,7 @@ public class Team {
 	@Override
 	public String toString() {
 		return "Team [id=" + id + ", name=" + name + ", wins=" + wins + ", losses=" + losses + ", ties=" + ties
-				+ ", pct=" + pct + ", winPoints=" + winPoints + ", lossPoints=" + lossPoints + ", pointsFor=" + pointsFor + ", pointsAgainst=" + pointsAgainst + ", division="
+				+ ", pct=" + pct + ", winPoints=" + winPoints + ", lossPoints=" + lossPoints +  ", division="
 				+ division + "]";
 	}
 }

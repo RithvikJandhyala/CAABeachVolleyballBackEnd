@@ -28,39 +28,17 @@ public class PlayerService {
 	private int generateID(Player player) {
 		
 		int id = 1;
-		Map<String, Integer> schoolMap = new HashMap<>();
-		schoolMap.put("BASIS Scottsdale", 1000);
-		schoolMap.put("BASIS Mesa", 2000);
-		schoolMap.put("BASIS Ahwatukee", 3000);
-		schoolMap.put("Heritage Academy Maricopa", 4000);
-		schoolMap.put("Heritage Academy Mesa", 5000);
-		schoolMap.put("Benjamin Franklin Charter", 6000);
-		schoolMap.put("ALA Gilbert North", 7000);
-		schoolMap.put("BASIS Prescott", 8000);
-		schoolMap.put("Tri-City Christian", 9000);
-		
-		
 		
 		Map<String, Integer> divisionMap = new HashMap<>();
-		divisionMap.put("JH Boys", 0);
-		divisionMap.put("JH Girls", 250);
-		divisionMap.put("HS Boys", 500);
-		divisionMap.put("HS Girls", 750);
-		
-		Map<String, Integer> playerTypeMap = new HashMap<>();
-		playerTypeMap.put("Singles", 0);
-		playerTypeMap.put("Doubles", 125);
-		
-		
-		String playerType = player.getPlayerType();
+		divisionMap.put("JH", 0);
+		divisionMap.put("HS", 500);
 		String division = player.getDivision();
 		String school = player.getSchool();
 		
-		List <Player> players = repository.findBySchoolAndDivisionAndPlayerType(school, division, playerType);
+		List <Player> players = repository.findBySchoolAndDivision(school, division);
 		if(players.size() == 0) {
 			id+= schoolRepository.findByName(school).getID();
 			id+= divisionMap.get(division);
-			id+= playerTypeMap.get(playerType);
 		}
 		else {
 			Player maxIDPlayer = players.stream()
@@ -87,8 +65,8 @@ public class PlayerService {
 			return playersByDivision;
 		}
 	}		
-	public List<Player> getPlayersBySchoolAndDivisionAndPlayerType(String school, String division, String playerType){
-		return repository.findBySchoolAndDivisionAndPlayerType(school, division, playerType);
+	public List<Player> getPlayersBySchoolAndDivision(String school, String division){
+		return repository.findBySchoolAndDivision(school, division);
 	}
 	
 
@@ -113,21 +91,36 @@ public class PlayerService {
 			}
 			else if(p1 == null && p2 != null) {
 				p2.setWins(p2.getWins() + 1);
+				p2.setPointsWon(p2.getPointsWon()+match.getPlayer2Score());
 			}		
 			else if(p1 != null && p2 == null) {
 				System.out.println( "Match not valid");
 				p1.setWins(p1.getWins() + 1);
+				p1.setPointsWon(p1.getPointsWon()+match.getPlayer1Score());
 			}		
 			else if(match.getPlayer1Score()> match.getPlayer2Score())
 			{
 				p1.setWins(p1.getWins() + 1);
 				p2.setLosses(p2.getLosses() + 1);
+				p1.setPointsWon(p1.getPointsWon()+match.getPlayer1Score());
+				p2.setPointsWon(p2.getPointsWon()+match.getPlayer2Score());
 				
 			}
-			else {
+			else if(match.getPlayer1Score()< match.getPlayer2Score()){
 				p2.setWins(p2.getWins() + 1);
 				p1.setLosses(p1.getLosses() + 1);
-			}			
+				p1.setPointsWon(p1.getPointsWon()+match.getPlayer1Score());
+				p2.setPointsWon(p2.getPointsWon()+match.getPlayer2Score());
+			}
+			else {
+				p1.setTies(p1.getTies()+1);
+				p2.setTies(p2.getTies()+1);
+				p1.setPointsWon(p1.getPointsWon()+match.getPlayer1Score());
+				p2.setPointsWon(p2.getPointsWon()+match.getPlayer2Score());
+			}
+			
+			
+			
 		}
 		repository.saveAll(players);
 		return "Player scores updated";

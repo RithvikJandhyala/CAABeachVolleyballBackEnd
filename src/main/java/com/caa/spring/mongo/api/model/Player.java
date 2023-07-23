@@ -17,20 +17,24 @@ public class Player {
 	private String name;
 	private String school;
 	private String division;
-	private String playerType;
+	
 	private int rank;
 	private int wins = 0;
 	private int losses = 0;
+	private int ties = 0;
+	private int pointsWon = 0;
 	
 	
-	public Player(int playerID, String name, String school, String division, String playerType,  int wins, int losses, int rank) {
+	public Player(int playerID, String name, String school, String division,  int wins, int losses, int ties, int pointsWon,int rank) {
 		this.playerID = playerID;
 		this.name = name;
 		this.school = school;
 		this.division = division;
-		this.playerType = playerType;
+		
 		this.wins = wins;
 		this.losses = losses;
+		this.ties = ties;
+		this.pointsWon = pointsWon;
 		this.rank = rank;
 	
 	}
@@ -58,12 +62,7 @@ public class Player {
 	public void setDivision(String division) {
 		this.division = division;
 	}
-	public String getPlayerType() {
-		return playerType;
-	}
-	public void setPlayerType(String playerType) {
-		this.playerType = playerType;
-	}
+	
 	public int getRank() {
 		return rank;
 	}
@@ -85,6 +84,30 @@ public class Player {
 	@Override
 	public String toString() {
 		return "Player [playerID=" + playerID + ", name=" + name + ", school=" + school + ", division=" + division
-				+ ", playerType=" + playerType + ", rank=" + rank + ", wins=" + wins + ", losses=" + losses + "]";
+				+  ", rank=" + rank + ", wins=" + wins + ", losses=" + losses + "]";
+	}
+	/**
+	 * @return the ties
+	 */
+	public int getTies() {
+		return ties;
+	}
+	/**
+	 * @param ties the ties to set
+	 */
+	public void setTies(int ties) {
+		this.ties = ties;
+	}
+	/**
+	 * @return the pointsWon
+	 */
+	public int getPointsWon() {
+		return pointsWon;
+	}
+	/**
+	 * @param pointsWon the pointsWon to set
+	 */
+	public void setPointsWon(int pointsWon) {
+		this.pointsWon = pointsWon;
 	}
 }

@@ -19,7 +19,6 @@ public class Match {
 	private int player1Score;
 	private int player2Score;
 	private String division;
-	private String matchType;
 	private String matchDate;
 	private String homeTeam;
 	private String awayTeam;
@@ -27,7 +26,7 @@ public class Match {
 	private String player2Name;
 	private long matchSummaryID;
 	public Match(long id, int player1ID, int player2ID, int player1Score, int player2Score, String division,
-			String matchType, String matchDate, String homeTeam, String awayTeam, long matchSummaryID) {
+			 String matchDate, String homeTeam, String awayTeam, long matchSummaryID) {
 		super();
 		this.id = id;
 		this.player1ID = player1ID;
@@ -35,7 +34,7 @@ public class Match {
 		this.player1Score = player1Score;
 		this.player2Score = player2Score;
 		this.division = division;
-		this.matchType = matchType;
+		
 		this.matchDate = matchDate;
 		this.homeTeam = homeTeam;
 		this.awayTeam = awayTeam;
@@ -85,20 +84,13 @@ public class Match {
 	@Override
 	public String toString() {
 		return "Match [id=" + id + ", player1ID=" + player1ID + ", player2ID=" + player2ID + ", player1Score="
-				+ player1Score + ", player2Score=" + player2Score + ", division=" + division + ", matchType="
-				+ matchType + ", matchDate=" + matchDate + ", homeTeam=" + homeTeam + ", awayTeam=" + awayTeam + "]";
+				+ player1Score + ", player2Score=" + player2Score + ", division=" + division +  ", matchDate=" + matchDate + ", homeTeam=" + homeTeam + ", awayTeam=" + awayTeam + "]";
 	}
 	public String getDivision() {
 		return division;
 	}
 	public void setDivision(String division) {
 		this.division = division;
-	}
-	public String getMatchType() {
-		return matchType;
-	}
-	public void setMatchType(String matchType) {
-		this.matchType = matchType;
 	}
 	public String getMatchDate() {
 		return matchDate;
