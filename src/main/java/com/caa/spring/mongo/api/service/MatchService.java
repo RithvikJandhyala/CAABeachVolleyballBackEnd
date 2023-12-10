@@ -76,11 +76,11 @@ public class MatchService {
 		// Make sure that the right division is set for the matches
 		int divisionID = match.getPlayer1ID() % 1000;
 		
-		if(divisionID > 0 && divisionID <= 500) {
+		if(divisionID >= 0 && divisionID < 500) {
 			match.setDivision("JH");
 		}
 		
-		else if(divisionID > 500 && divisionID <= 999) {
+		else if(divisionID >= 500 && divisionID <= 999) {
 			match.setDivision("HS");
 		}
 		

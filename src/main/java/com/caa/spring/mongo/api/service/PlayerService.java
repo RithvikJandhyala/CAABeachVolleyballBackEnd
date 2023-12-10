@@ -145,6 +145,13 @@ public class PlayerService {
 		repository.deleteAll();
 		return "ALL PLAYERS CLEARED";
 	}
-	
+	public String createGhostPlayers(String school,int id){
+		Player ghostJH = new Player(id, "Ghost" + " JH " + school, school, "JH",  0, 0, 0, 0,0);
+		Player ghostHS = new Player(id+500, "Ghost" + " HS " + school, school, "HS",  0, 0, 0, 0,0);
+		repository.save(ghostJH);
+		repository.save(ghostHS);
+		return "created ghost players";
+		
+	}
 		
 }

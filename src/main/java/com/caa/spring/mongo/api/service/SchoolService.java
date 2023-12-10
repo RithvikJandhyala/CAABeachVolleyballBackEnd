@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.caa.spring.mongo.api.model.School;
+
 import com.caa.spring.mongo.api.repository.SchoolRepository;
 import com.caa.spring.mongo.api.repository.TeamRepository;
 
@@ -19,6 +20,9 @@ public class SchoolService {
 	private SchoolRepository repository;
 	@Autowired
 	private TeamRepository teamRepository;
+	@Autowired
+	private PlayerService playerService;
+	
 	public List<School> getSchools(){
 		return repository.findAll();
 	}
@@ -48,6 +52,11 @@ public class SchoolService {
         school.setImage(file.getBytes());
           //new Binary(BsonBinarySubType.BINARY, file.getBytes())); 
         school = repository.insert(school); 
+        //create ghost players
+        playerService.createGhostPlayers(name,id);
+        
+        
+        
         return school.getID(); 
     }
 
