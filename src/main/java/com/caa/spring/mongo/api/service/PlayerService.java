@@ -55,6 +55,24 @@ public class PlayerService {
 		//return repository.findAll(Sort.by(Sort.Direction.DESC, "wins"));
 		return repository.findAll(Sort.by(Sort.Direction.ASC, "playerID"));
 	}
+	
+	public String resetPlayerScores(){
+		//return repository.findAll(Sort.by(Sort.Direction.DESC, "wins"));
+		List<Player> players = repository.findAll();
+		Player player;
+		for(int i = 0; i < players.size(); i++)
+		{
+			player = players.get(i);
+			player.setRank(0);
+			player.setWins(0);
+			player.setLosses(0);
+			player.setTies(0);
+			player.setPointsWon(0);
+		}
+		repository.saveAll(players);
+		return "Updated";
+		
+	}
 	public List<Player> getPlayersByDivision(String division){
 		if(division.equals("All Divisions")){
 			return getPlayers();

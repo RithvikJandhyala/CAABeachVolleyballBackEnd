@@ -313,12 +313,16 @@ public class MatchService {
 				Optional<Player> p1 = playerService.getPlayer(match.getPlayer1ID());
 				Optional<Player> p2 = playerService.getPlayer(match.getPlayer2ID());
 				Player player1 = null, player2 = null;
-				int p1OGWins = 0 ,p1OGLosses = 0 ,p2OGWins  = 0 ,p2OGLosses  = 0;
+				int p1OGWins = 0 ,p1OGLosses = 0 , p1OGTies = 0, p1OGpointsWon = 0,						
+						p2OGWins  = 0 ,p2OGLosses  = 0,p2OGTies = 0, p2OGpointsWon = 0;
 				if(p1.isPresent())
 				{
 					player1 = p1.get();
 					p1OGWins = player1.getWins();
 					p1OGLosses = player1.getLosses();
+					p1OGTies = player1.getTies();
+					p1OGpointsWon = player1.getPointsWon();
+					
 				}
 				
 				if(p2.isPresent())
@@ -326,23 +330,45 @@ public class MatchService {
 					player2 = p2.get();
 					p2OGWins = player2.getWins();
 					p2OGLosses = player2.getLosses();
+					p2OGTies = player2.getTies();
+					p2OGpointsWon = player2.getPointsWon();
 				}
 				
 				System.out.println("Before");
 				System.out.println(player1);
 				System.out.println(player2);
+			
 				if(match.getPlayer1Score() > match.getPlayer2Score()){
-					if(player1 != null)
+					if(player1 != null) {
 					    player1.setWins(p1OGWins-1);
-					if(player2 != null)
+					    player1.setPointsWon(p1OGpointsWon - match.getPlayer1Score() );
+					}
+					if(player2 != null) {
           				player2.setLosses(p2OGLosses-1);
+					 	player2.setPointsWon(p2OGpointsWon - match.getPlayer2Score() );
+					}
 				}
 				if(match.getPlayer1Score() < match.getPlayer2Score()){
-					if(player2 != null)
+					if(player2 != null) {
 						player2.setWins(p2OGWins-1);
-					if(player1 != null)
+					    player2.setPointsWon(p2OGpointsWon - match.getPlayer2Score() );
+					}
+					if(player1 != null) {
 						player1.setLosses(p1OGLosses-1);
+						player1.setPointsWon(p1OGpointsWon - match.getPlayer1Score() );
+					}
 				}
+				if(match.getPlayer1Score() == match.getPlayer2Score()){
+					if(player2 != null) {
+						player2.setTies(p2OGTies-1);
+						player2.setPointsWon(p2OGpointsWon - match.getPlayer2Score() );
+					}
+					if(player1 != null) {
+						player1.setTies(p1OGTies-1);
+						player1.setPointsWon(p1OGpointsWon - match.getPlayer1Score() );
+					}
+				}
+				
 				System.out.println("After");
 				System.out.println(player1);
 				System.out.println(player2);
