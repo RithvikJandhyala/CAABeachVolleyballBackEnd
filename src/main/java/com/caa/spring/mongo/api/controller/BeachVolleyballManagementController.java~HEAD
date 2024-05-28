@@ -27,9 +27,9 @@ import com.caa.spring.mongo.api.service.PlayerService;
 import com.caa.spring.mongo.api.service.SchoolService;
 import com.caa.spring.mongo.api.service.UserService;
 
-@CrossOrigin(origins = "https://www.azcaabeachvolleyball.com")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-public class BeachVolleyballManagementController {
+public class ChessManagementController {
 	@Autowired
 	private PlayerService playerService;
 	@Autowired
@@ -182,4 +182,6 @@ public class BeachVolleyballManagementController {
 		schoolService.clear();
 		return "Season reset";
 	}
+	
+	
 }

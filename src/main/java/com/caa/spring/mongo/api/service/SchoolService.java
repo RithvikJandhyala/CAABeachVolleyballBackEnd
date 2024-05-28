@@ -53,7 +53,7 @@ public class SchoolService {
           //new Binary(BsonBinarySubType.BINARY, file.getBytes())); 
         school = repository.insert(school); 
         //create ghost players
-        playerService.createGhostPlayers(name,id);
+        //playerService.createGhostPlayers(name,id);
         
         
         

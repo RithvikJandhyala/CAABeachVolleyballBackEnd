@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "User")
 public class User {
 
-	public User(String firstName, String lastName, String homeTeam, String username, String password, String role) {
+	public User(String firstName, String lastName, String homeTeam, String username, String password, String role,long phoneNumber) {
 		super();
 		
 		this.firstName = firstName;
@@ -15,6 +15,7 @@ public class User {
 		this.username = username;
 		this.password = password;
 		this.role = role;
+		this.setPhoneNumber(phoneNumber);
 	}
 	@Id
 	private String username;
@@ -23,6 +24,7 @@ public class User {
 	private String homeTeam;	
 	private String password;
 	private String role;
+	private long phoneNumber;
 	
 	public String getFirstName() {
 		return firstName;
@@ -63,6 +65,13 @@ public class User {
 	public String toString() {
 		return "User [firstName=" + firstName + ", lastName=" + lastName + ", homeTeam=" + homeTeam + ", username="
 				+ username + ", password=" + password + ", role=" + role + "]";
+	}
+	
+	public long getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(long phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 	
 	

@@ -21,11 +21,11 @@ public class Player {
 	private int rank;
 	private int wins = 0;
 	private int losses = 0;
-	private int ties = 0;
+	
 	private int pointsWon = 0;
 	
 	
-	public Player(int playerID, String name, String school, String division,  int wins, int losses, int ties, int pointsWon,int rank) {
+	public Player(int playerID, String name, String school, String division,  int wins, int losses, int pointsWon,int rank) {
 		this.playerID = playerID;
 		this.name = name;
 		this.school = school;
@@ -33,7 +33,7 @@ public class Player {
 		
 		this.wins = wins;
 		this.losses = losses;
-		this.ties = ties;
+		
 		this.pointsWon = pointsWon;
 		this.rank = rank;
 	
@@ -86,19 +86,7 @@ public class Player {
 		return "Player [playerID=" + playerID + ", name=" + name + ", school=" + school + ", division=" + division
 				+  ", rank=" + rank + ", wins=" + wins + ", losses=" + losses + "]";
 	}
-	/**
-	 * @return the ties
-	 */
-	public int getTies() {
-		return ties;
-	}
-	/**
-	 * @param ties the ties to set
-	 */
-	public void setTies(int ties) {
-		this.ties = ties;
-	}
-	/**
+		/**
 	 * @return the pointsWon
 	 */
 	public int getPointsWon() {

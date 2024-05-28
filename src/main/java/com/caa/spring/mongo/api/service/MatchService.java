@@ -76,14 +76,19 @@ public class MatchService {
 		// Make sure that the right division is set for the matches
 		int divisionID = match.getPlayer1ID() % 1000;
 		
-		if(divisionID >= 0 && divisionID < 500) {
-			match.setDivision("JH");
+		if(divisionID >= 0 && divisionID < 250) {
+			match.setDivision("JH Boys");
 		}
 		
-		else if(divisionID >= 500 && divisionID <= 999) {
-			match.setDivision("HS");
+		else if(divisionID >= 250 && divisionID < 500) {
+			match.setDivision("JH Girls");
 		}
-		
+		else if(divisionID >= 500 && divisionID < 750) {
+			match.setDivision("HS Boys");
+		}
+		else if(divisionID >= 750 && divisionID <= 999) {
+			match.setDivision("HS Girls");
+		}
 					
 		if(match.getPlayer1ID()== 0 && match.getPlayer2ID() == 0) {
 			System.out.println("No Show vs No Show");
@@ -145,12 +150,28 @@ public class MatchService {
 		
 		
 		for (HashMap.Entry<Integer, Match> validMatch : validMatches.entrySet()) {
-		    Match match = validMatch.getValue();
+			int seq = validMatch.getKey();
+			Match match = validMatch.getValue();
 		    currentCount++;
 		    match.setId(currentCount);
-		    homeTeamSummaryPoints += match.getPlayer1Score();
-		    awayTeamSummaryPoints += match.getPlayer2Score();
- 
+		    if(seq == 0)
+			{
+					if(match.getPlayer1Score() > match.getPlayer2Score()) {
+						homeTeamSummaryPoints +=2;
+					}
+					else {
+						awayTeamSummaryPoints +=2;
+					} 
+				
+			}
+			else {
+				if(match.getPlayer1Score() > match.getPlayer2Score()) {
+					homeTeamSummaryPoints++;
+				}
+				else {
+					awayTeamSummaryPoints++;
+				} 
+			}
 		    
 		}
 		
@@ -313,14 +334,13 @@ public class MatchService {
 				Optional<Player> p1 = playerService.getPlayer(match.getPlayer1ID());
 				Optional<Player> p2 = playerService.getPlayer(match.getPlayer2ID());
 				Player player1 = null, player2 = null;
-				int p1OGWins = 0 ,p1OGLosses = 0 , p1OGTies = 0, p1OGpointsWon = 0,						
-						p2OGWins  = 0 ,p2OGLosses  = 0,p2OGTies = 0, p2OGpointsWon = 0;
+				int p1OGWins = 0 ,p1OGLosses = 0 ,  p1OGpointsWon = 0,						
+						p2OGWins  = 0 ,p2OGLosses  = 0, p2OGpointsWon = 0;
 				if(p1.isPresent())
 				{
 					player1 = p1.get();
 					p1OGWins = player1.getWins();
 					p1OGLosses = player1.getLosses();
-					p1OGTies = player1.getTies();
 					p1OGpointsWon = player1.getPointsWon();
 					
 				}
@@ -330,7 +350,6 @@ public class MatchService {
 					player2 = p2.get();
 					p2OGWins = player2.getWins();
 					p2OGLosses = player2.getLosses();
-					p2OGTies = player2.getTies();
 					p2OGpointsWon = player2.getPointsWon();
 				}
 				
@@ -358,16 +377,7 @@ public class MatchService {
 						player1.setPointsWon(p1OGpointsWon - match.getPlayer1Score() );
 					}
 				}
-				if(match.getPlayer1Score() == match.getPlayer2Score()){
-					if(player2 != null) {
-						player2.setTies(p2OGTies-1);
-						player2.setPointsWon(p2OGpointsWon - match.getPlayer2Score() );
-					}
-					if(player1 != null) {
-						player1.setTies(p1OGTies-1);
-						player1.setPointsWon(p1OGpointsWon - match.getPlayer1Score() );
-					}
-				}
+				
 				
 				System.out.println("After");
 				System.out.println(player1);

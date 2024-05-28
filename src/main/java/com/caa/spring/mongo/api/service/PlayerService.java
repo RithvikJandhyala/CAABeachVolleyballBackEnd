@@ -11,12 +11,15 @@ import com.caa.spring.mongo.api.model.Match;
 import com.caa.spring.mongo.api.model.Player;
 import com.caa.spring.mongo.api.repository.PlayerRepository;
 import com.caa.spring.mongo.api.repository.SchoolRepository;
+import com.caa.spring.mongo.api.repository.MatchRepository;
 @Service
 public class PlayerService {
 	@Autowired
 	private PlayerRepository repository;
 	@Autowired
 	private SchoolRepository schoolRepository;
+	@Autowired
+	private MatchRepository matchRepository;
 
 	public String savePlayer(Player player) {
 		int id = generateID(player);
@@ -30,8 +33,10 @@ public class PlayerService {
 		int id = 1;
 		
 		Map<String, Integer> divisionMap = new HashMap<>();
-		divisionMap.put("JH", 0);
-		divisionMap.put("HS", 500);
+		divisionMap.put("JH Boys", 0);
+		divisionMap.put("JH Girls", 250);
+		divisionMap.put("HS Boys", 500);
+		divisionMap.put("HS Girls", 750);
 		String division = player.getDivision();
 		String school = player.getSchool();
 		
@@ -66,7 +71,6 @@ public class PlayerService {
 			player.setRank(0);
 			player.setWins(0);
 			player.setLosses(0);
-			player.setTies(0);
 			player.setPointsWon(0);
 		}
 		repository.saveAll(players);
@@ -95,6 +99,8 @@ public class PlayerService {
 	public String deletePlayer(int id) {
 		repository.deleteById(id);
 		System.out.print("delete " + id);
+		List<Match> matchesByPlayerID = matchRepository.findByPlayer1IDOrPlayer2ID(id, id);
+		matchRepository.deleteAll(matchesByPlayerID);
 		return "Player deleted with  " + id;
 	}
 
@@ -130,15 +136,6 @@ public class PlayerService {
 				p1.setPointsWon(p1.getPointsWon()+match.getPlayer1Score());
 				p2.setPointsWon(p2.getPointsWon()+match.getPlayer2Score());
 			}
-			else {
-				p1.setTies(p1.getTies()+1);
-				p2.setTies(p2.getTies()+1);
-				p1.setPointsWon(p1.getPointsWon()+match.getPlayer1Score());
-				p2.setPointsWon(p2.getPointsWon()+match.getPlayer2Score());
-			}
-			
-			
-			
 		}
 		repository.saveAll(players);
 		return "Player scores updated";
@@ -163,13 +160,13 @@ public class PlayerService {
 		repository.deleteAll();
 		return "ALL PLAYERS CLEARED";
 	}
-	public String createGhostPlayers(String school,int id){
+	/*public String createGhostPlayers(String school,int id){
 		Player ghostJH = new Player(id, "Ghost" + " JH " + school, school, "JH",  0, 0, 0, 0,0);
 		Player ghostHS = new Player(id+500, "Ghost" + " HS " + school, school, "HS",  0, 0, 0, 0,0);
 		repository.save(ghostJH);
 		repository.save(ghostHS);
 		return "created ghost players";
 		
-	}
+	}*/
 		
 }
