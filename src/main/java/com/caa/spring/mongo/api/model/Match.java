@@ -14,6 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Match {	
 	@Id
     private long id;	
+	private String pair;
 	private int player1ID;
 	private int player2ID;	
 	private int player1Score;
@@ -25,16 +26,16 @@ public class Match {
 	private String player1Name;
 	private String player2Name;
 	private long matchSummaryID;
-	public Match(long id, int player1ID, int player2ID, int player1Score, int player2Score, String division,
+	public Match(long id, String pair, int player1ID, int player2ID, int player1Score, int player2Score, String division,
 			 String matchDate, String homeTeam, String awayTeam, long matchSummaryID) {
 		super();
 		this.id = id;
+		this.pair= pair;
 		this.player1ID = player1ID;
 		this.player2ID = player2ID;
 		this.player1Score = player1Score;
 		this.player2Score = player2Score;
 		this.division = division;
-		
 		this.matchDate = matchDate;
 		this.homeTeam = homeTeam;
 		this.awayTeam = awayTeam;
@@ -129,6 +130,12 @@ public class Match {
 	}
 	public void setMatchSummaryID(long matchSummaryID) {
 		this.matchSummaryID = matchSummaryID;
+	}
+	public String getPair() {
+		return pair;
+	}
+	public void setPair(String pair) {
+		this.pair = pair;
 	}
 	
 	
